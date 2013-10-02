@@ -29,15 +29,21 @@ if (!version_compare($wp_version, "3.0", ">=")) {
     die("You need at least version 3.0 of WordPress to use this plugin.");
 }
 
+//set up the loading action by tying it to the 'plugins_loaded' action hook
+add_action( 'plugins_loaded', 'mk_lf_footer_credits_setup' );
 
-add_action( 'wp_footer', 'mk_lf_footer_credits', 100 );
-
-
-//Add credits to the footer
-function mk_lf_footer_credits() { 
-	echo '<a href="http://loudfeed.tv" title="visit our website"><img src=" ' . plugins_url('images/lf-logo.png', __File__) . '"></a>';
-    echo 'Created by <a href="http://loudfeed.tv" title="visit our website">LoudFeed</a>';
+//once loaded add your function to the footer
+function mk_lf_footer_credits_setup(){
+	add_action( 'wp_footer', 'mk_lf_footer_credits', 100 );
 
 }
+//Add credits to the footer
+function mk_lf_footer_credits() { 
+		echo '<a href="http://loudfeed.tv" title="visit our website"><img src=" ' . plugins_url('images/lf-logo.png', __File__) . '"></a>';
+	    echo 'Created by <a href="http://loudfeed.tv" title="visit our website">LoudFeed</a>';
+
+	}
+}
+
 
 ?>
